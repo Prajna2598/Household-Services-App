@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-sm btn-success mt-2" data-bs-toggle="modal"
+    data-bs-target="#AcceptModal{{ request.id }}"><i class="fas fa-check fa-xs"></i> Accept</button>
+
+<!-- Modal -->
+<div class="modal fade" id="AcceptModal{{ request.id }}" tabindex="-1" aria-labelledby="AcceptModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AcceptModalLabel">Confirm Action</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to Accept the request from customer <strong>{{ request.customer.name }}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('accept_request', service_request_id=request.id) }}"
+                    class="btn btn-danger">Accept</a>
+            </div>
+        </div>
+    </div>
+</div>

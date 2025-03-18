@@ -1,0 +1,37 @@
+<!-- Button to trigger the modal -->
+<button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal"
+    data-bs-target="#EditRequestModal{{ request.id }}">
+    <i class="fas fa-edit fa-xs"></i> Edit
+</button>
+
+<!-- Modal to show contractor details -->
+<div class="modal fade" id="EditRequestModal{{ request.id }}" tabindex="-1" aria-labelledby="EditRequestModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditRequestModalLabel">Edit Service Request for {{ request.req_service.service_name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('edit_request', service_request_id=request.id) }}" method="post">
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Instructions</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contractor" class="form-label">Professional</label>
+                        <input type="text" class="form-control" id="professional" name="professional"
+                            value="{{ request.professional.name }}" readonly >
+                    </div>
+                    <p class="text-muted">If you want to change the professional, please delete current request and create a new one.</p>
+                    <p class="text-muted">PLEASE NOTE: You cannot delete the request once the professional has accepted the request</p>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

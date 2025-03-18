@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-sm btn-success mt-2" data-bs-toggle="modal"
+    data-bs-target="#approveModal{{ professional.id }}"><i class="fas fa-check fa-xs"></i> Approve</button>
+
+<!-- Modal -->
+<div class="modal fade" id="approveModal{{ professional.id }}" tabindex="-1" aria-labelledby="approveModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approveModalLabel">Confirm Approval</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to approve the professional <strong>{{ professional.username }}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('approve_professional', staff_id=professional.id) }}"
+                    class="btn btn-danger">Approve</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createModal"><i class="fas fa-plus fa-xs"></i> Create a
+    Service</button>
+<!-- Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Create Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('create_service') }}" method="post">
+                    <div class="form-group">
+                        <label for="service_name">Service Name:</label>
+                        <input type="text" class="form-control" id="service_name" name="service_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service_description">Service Description:</label>
+                        <textarea class="form-control" id="service_description" name="service_description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="base_price">Base Price:</label>
+                        <input type="number" class="form-control" id="base_price" name="base_price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time_required">Time Required:</label>
+                        <input type="text" class="form-control" id="time_required" name="time_required" required>
+                    </div>
+                    <input type="submit" class="btn btn-primary mt-3" value="Create Service">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

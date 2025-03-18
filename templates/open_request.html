@@ -1,0 +1,26 @@
+<button type="button" class="btn btn-sm btn-primary mt-2" data-bs-toggle="modal"
+    data-bs-target="#OpenRequestModal{{ service.id }}">
+    <i class="fas fa-plus fa-xs"></i> Create Open Request
+</button>
+
+<div class="modal fade" id="OpenRequestModal{{ service.id }}" tabindex="-1" aria-labelledby="OpenRequestModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="OpenRequestModalLabel">Confirm Action</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to create an open request for <strong>{{ service.service_name }}</strong>?</p>
+                <p class="text-muted">PLEASE NOTE: This request will be sent to all the professionals of this service.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form action="{{ url_for('open_request', service_id=service.id) }}" method="post">
+                    <button type="submit" class="btn btn-primary">Create Open Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

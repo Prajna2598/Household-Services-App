@@ -1,0 +1,24 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bidRequestModal{{ request.id }}">
+    Bid Request
+</button>
+
+<div class="modal fade" id="bidRequestModal{{ request.id }}" tabindex="-1"
+    aria-labelledby="bidRequestModalLabel{{ request.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bid Request to: {{request.customer.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>For service: <strong>{{ request.req_service.service_name }}</strong></p>
+                <form method="POST" action="{{ url_for('bid_request', service_request_id=request.id) }}">
+                    <label for="description">Description</label>
+                    <textarea class="form-control mt-3" id="description" name="description" rows="3" required></textarea>
+                    <p class="text-muted mt-3">PLEASE NOTE: This action is irreversible</p>
+                    <button type="submit" class="btn btn-primary mt-3">Bid</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

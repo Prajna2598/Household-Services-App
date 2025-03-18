@@ -1,0 +1,23 @@
+<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+    data-bs-target="#RejectModal{{ request.id }}"><i class="fas fa-times fa-xs"></i> Reject</button>
+
+<!-- Modal -->
+<div class="modal fade" id="RejectModal{{ request.id }}" tabindex="-1" aria-labelledby="RejectModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="RejectModalLabel">Confirm Action</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to Reject the request from professional <strong>{{ request.professional.name }}</strong> for service <strong>{{ request.req_service.service_name }}</strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('reject_professional_request', service_request_id=request.id) }}"
+                    class="btn btn-danger">Reject</a>
+            </div>
+        </div>
+    </div>
+</div>

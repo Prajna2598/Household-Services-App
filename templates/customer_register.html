@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Customer Register - Homemakers
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex vh-100">
+            <div class="col-xl-6">
+                    <div class="card">
+                        <div class="card-title">
+                            <h1 class="text-white text-center mt-5">
+                                Register as a Customer
+                            </h1>
+                        </div>
+                    
+                        <hr>
+
+                        <div class="card-body p-md-5 mx-md-4">
+                        
+                        <form method="post" action="{{url_for('customer_register')}}">
+
+                            <div class="row">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mt-2">Name</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="text" name="name" class="form-control form-control" required/>
+                                </div>
+                            </div>
+
+                            <hr class="mt-2">
+
+                            <div class="row">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mt-2">Username</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="text" name="username" class="form-control form-control" required/>
+                                </div>
+                            </div>
+
+                            <hr class="mt-2">
+
+                            <div class="row">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mt-2">Password</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="password" name="password" class="form-control form-control" required/>
+                                </div>
+                            </div>
+
+                            <hr class="mt-2">
+
+                            <div class="row">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mt-2">Address</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="text" name="address" class="form-control form-control" required/>
+                                </div>
+                            </div>
+
+                            <hr class="mt-2">
+
+                            <div class="row">
+                                <div class="col-md-3 ps-5">
+                                    <h6 class="mt-2">Pincode</h6>
+                                </div>
+                                <div class="col-md-9 pe-5">
+                                    <input type="text" name="pincode" class="form-control form-control" required/>
+                                </div>
+                            </div>
+
+                            <hr class="mt-2">
+
+                            <div class="text-center pt-1 mb-3 pb-1">
+                                <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                            </div>
+
+                            <p class="text-center text-white">
+                                Already registered?
+                                <a href="{{url_for('login')}}" class="link-primary">Login here</a>
+                            </p>
+
+                        </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block style %}
+    <style>
+    .vh-100 {
+    justify-content: center;
+    align-items: center;
+    background-image: url("/static/images/image.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .card {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        border: oldlace 1px solid;
+    }
+
+    .card-body {
+        color: white;
+    }
+
+    .form-label {
+        color: white;
+    }
+    </style>
+{% endblock %}

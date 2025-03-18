@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Customer Dashboard - Homemakers
+{% endblock %}
+
+{% block content %}
+
+    {% include 'navbar.html' %}
+
+    <div class="container-fluid mt-3">
+        <div class="row gx-5">
+            <div class="col-3">
+                <h3>Requests Sent</h3>
+                <ul class="list-group mt-3">
+                    {% if not public_requests %}
+                    <li class="list-group-item">No public requests</li>
+                    {% endif %}
+                    {% for request in public_requests %}
+                        <li class="list-group-item">
+                            <h5 class="mb-1">{{ request.req_service.service_name }}</h5>
+                            <small class="text-muted">Date created: {{ request.date_created }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="col-9">
+                <h3>Bid Requests from Professionals</h3>
+                <table class="table table-striped table-hover table-sm mt-3">
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Professional Name</th>
+                            <th>Average Rating</th>
+                            <th>Description</th>
+                            <th>View Profile</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if not bid_requests %}
+                        <tr>
+                            <td colspan="12" class="text-center">No bid requests</td>
+                        </tr>
+                        {% endif %}
+                        {% for request in bid_requests %}
+                            <tr>
+                                <td>{{ request.req_service.service_name }}</td>
+                                <td>{{ request.professional.name }}</td>
+                                <td>{{ request.professional.avg_rating }}</td>
+                                <td>{{ request.description }}</td>
+                                {% set professional = request.professional %}
+                                <td>{%  include 'show_professional.html' %}</td>
+                                <td>
+                                    {% include 'accept_professional_request.html' %}
+                                    {% include 'reject_professional_request.html' %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

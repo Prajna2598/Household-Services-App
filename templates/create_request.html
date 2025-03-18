@@ -1,0 +1,45 @@
+<!-- Button to trigger the modal -->
+<button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+    data-bs-target="#CreateRequestModal{{ service.id }}">
+    <i class="fas fa-plus fa-xs"></i> Create Request
+</button>
+
+<!-- Modal to show professional details -->
+<div class="modal fade" id="CreateRequestModal{{ service.id }}" tabindex="-1" aria-labelledby="CreateRequestModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CreateRequestModalLabel">Create Service Request for <strong>{{ service.service_name}}</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('create_request', service_id=service.id) }}" method="post">
+                    <div class="mb-3">
+                        <label for="service_name" class="form-label">Service Name</label>
+                        <input type="text" class="form-control" id="service_name" name="service_name"
+                            value="{{ service.service_name }}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Instructions</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="professional" class="form-label">Professional</label>
+                        <select class="form-select" aria-label="Default select example" id="professional"
+                            name="professional">
+                            {% for professional in professionals %}
+                            <option value="{{ professional.name }}">{{ professional.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

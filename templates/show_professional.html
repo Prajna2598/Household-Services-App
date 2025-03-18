@@ -1,0 +1,63 @@
+        <!-- Button to trigger the modal -->
+        <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal"
+            data-bs-target="#professionalDetailsModal{{professional.id}}">
+            <i class="fas fa-eye fa-xs"></i> View Profile
+        </button>
+
+        <!-- Modal to show professional details -->
+        <div class="modal fade" id="professionalDetailsModal{{professional.id}}" tabindex="-1"
+            aria-labelledby="professionalDetailsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="professionalDetailsModalLabel">Professional Details: {{ professional.name }}
+                        </h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="details">
+                            <p>Service Experience: {{professional.service_experience }}</p>
+                            <p>Address: {{professional.address }}</p>
+                            <p>Pincode: {{professional.pincode }}</p>
+                            <p>Avg. Rating: {{professional.avg_rating }}</p>
+                            <p>Service file: <a href="{{ url_for('static', filename='pdf/' + professional.service_file) }}" target="_blank">{{professional.service_file }}</a></p>
+                        </div>
+                        <hr>
+                        <div class="reviews">
+                            <h5 class="mt-2">Customer Reviews</h5>
+                            {% if not professional.is_approved %}
+                                <p class="text-muted">This professional is not approved yet.</p>
+                            {% endif %}
+                            {% if professional.is_approved %}
+                                {% if not professional.requests_received %}
+                                <p class="text-muted">No reviews found.</p>
+                                {% endif %}
+                                {% for review in professional.requests_received %}
+                                    {% if review.status == 'closed' %}
+                                    <div class="review-items">
+                                        <div class="card text-black bg-outline-primary mb-2">
+                                            <div class="card-header">{{ review.customer.name }}</div>
+                                            <div class="card-body">
+                                                <p class="card-text">Rating:{{ review.customer_rating }}</p>
+                                                <p class="card-text">Review:{{ review.customer_review }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<style>
+    .review-items {
+        width: 20%;
+        display: inline-block;
+    }
+</style>

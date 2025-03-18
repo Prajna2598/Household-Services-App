@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Customer Dashboard - Homemakers
+{% endblock %}
+
+{% block content %}
+
+    {% include 'navbar.html' %}
+
+    <div class="container-fluid mt-3">
+
+        <h1 class="text-center">Admin Summary - {{session['username']}}</h1>
+
+        <div class="row mt-3">
+            <div class="col-md-6 mb-2">
+                <img src="/static/images/img_1.png" class="img-fluid" alt="Chart of User Count by Role">
+            </div>
+            <div class="col-md-6 mb-2">
+                <img src="/static/images/img_2.png" class="img-fluid" alt="Chart of Requests by Status">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Total Counts</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <div class="card text-bg-light mb-3 list_item">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Customers and Professionals</h5>
+                                    <p class="card-text">Customers: {{customer_count }}</p>
+                                    <p class="card-text">Approved Professionals: {{ app_professional_count }}</p>
+                                    <p class="card-text">Unapproved/Rejected Professionals: {{ rej_professional_count }}</p>
+                                </div>
+                            </div>
+                            <div class="card text-bg-light mb-3 list_item">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Requests</h5>
+                                    <p class="card-text">Accepted: {{ accepted_request_count }}</p>
+                                    <p class="card-text">Pending: {{ pending_request_count }}</p>
+                                    <p class="card-text">Rejected: {{ rejected_request_count }}</p>
+                                    <p class="card-text">Closed: {{ closed_request_count }}</p>
+                                    <p class="card-text">Public: {{ public_request_count }}</p>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Maximum Request Counts</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <div class="card text-bg-light mb-3 list_item">
+                                <div class="card-body">
+                                    <h5 class="card-title">Most Demanding Customer</h5>
+                                    <p class="card-text"> Sent by: {{customer_name}}</p>
+                                    <p class="card-text">Request Count: {{ max_request_count }}</p>
+                                </div>
+                            </div>
+                            <div class="card text-bg-light mb-3 list_item">
+                                <div class="card-body">
+                                    <h5 class="card-title">Highest Rated Professional(s)</h5>
+                                    <p class="card-text">Name(s): 
+                                        {% for professional in max_professionals %}
+                                            {% if not loop.last %}
+                                            {{professional}},
+                                            {% else %}
+                                            {{professional}}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </p>
+                                    <p class="card-text">Rating: {{ rating }}</p>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% block style %}
+    <style>
+        .list-group{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .list_item{
+            width: 15rem;
+            margin: 5px;
+        }
+    </style>
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(4, 195, 195);">    
+    <div class="container-fluid">
+            {% if session['is_admin'] %}
+                <a class="navbar-brand" href="{{url_for('admin_dashboard')}}">Admin Dashboard - {{session['username']}}</a>
+            {% elif session['is_professional'] %}
+                <a class="navbar-brand" href="{{url_for('professional_dashboard', user_id=session.get('user_id'))}}">Professional Dashboard - {{session['username']}}</a>
+            {% elif session['is_customer'] %}
+                <a class="navbar-brand" href="{{url_for('customer_dashboard', user_id=session.get('user_id'))}}">Customer Dashboard - {{session['username']}}</a>
+            {% endif %}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    {% if session['is_admin'] %}
+                        <a class="nav-link" href="{{url_for('admin_profile')}}">Profile</a>
+                    {% elif session['is_professional'] %}
+                        <a class="nav-link" href="{{url_for('professional_profile')}}">Profile</a>
+                    {% elif session['is_customer'] %}
+                        <a class="nav-link" href="{{url_for('customer_profile')}}">Profile</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['is_admin'] %}
+                    <a class="nav-link" href="{{url_for('admin_search')}}">Search</a>
+                    {% elif session['is_professional'] %}
+                    <a class="nav-link" href="{{url_for('professional_search')}}">Search</a>
+                    {% elif session['is_customer'] %}
+                    <a class="nav-link" href="{{url_for('customer_search')}}">Search</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['is_admin'] %}
+                    <!-- show nothing -->
+                    {% elif session['is_professional'] %}
+                    <a class="nav-link" href="{{url_for('sent_requests')}}">Bid Requests</a>
+                    {% elif session['is_customer'] %}
+                    <a class="nav-link" href="{{url_for('customer_public_requests')}}">Public Requests</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if session['is_admin'] %}
+                    <a class="nav-link" href="{{url_for('admin_summary')}}">Summary</a>
+                    {% elif session['is_professional'] %}
+                    <!-- show nothing -->
+                    {% elif session['is_customer'] %}
+                    <!-- show nothing -->
+                    {% endif %}
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

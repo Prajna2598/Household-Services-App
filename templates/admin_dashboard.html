@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Admin Dashboard - Homemakers
+{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<div class="container-fluid mt-3">
+    <h3 class="mt-3">Available Services</h3>
+    <table class="table table-striped table-hover table-sm mt-3">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+                <th>Base Price</th>
+                <th>Time Required</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if not services %}
+            <tr>
+                <td colspan="12" class="text-center">No services available.</td>
+                <td>{% include 'create_service.html' %}</td>
+            </tr>
+            {% endif %}
+            {% for service in services %}
+            <tr>
+                <td>{{ service.service_name }}</td>
+                <td>{{ service.service_description }}</td>
+                <td>&#8377 {{ service.base_price }}</td>
+                <td>{{ service.time_required }}</td>
+                <td>
+                    {% include 'edit_service.html' %}
+                    {% include 'delete_service.html' %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr><td>{% include 'create_service.html' %}</td></tr>
+        </tbody>
+    </table>
+
+    <hr class="mt-3">
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Unapproved Professionals</h3>
+        </div>
+        <div class="card-body">
+            {% if to_be_approved %}
+            <ul class="list-group">
+                {% for professional in to_be_approved %}
+                        <div class="card text-bg-light mb-3 list_item" style="width: 15rem;">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>{{professional.name}}</strong></h5>
+                                <p class="card-text">Service: {{professional.service.service_name}}</p>
+                                <div class="action">
+                                    {% include 'show_professional.html' %}
+                                    {% include 'approve.html' %}
+                                    {% include 'reject.html' %}
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class = "text-muted">No unapproved or rejected professionals.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="mt-3">
+    <h3>Requests</h3>
+    <table class="table table-striped table-hover table-sm mt-3">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Professional Name</th>
+                <th>Address</th>
+                <th>Pincode</th>
+                <th>Request type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if not service_requests %}
+            <tr>
+                <td colspan="12" class="text-center">No requests available.</td>
+            </tr>
+            {% endif %}
+            {% for request in service_requests %}
+            <tr>
+                <td>{{ request.customer.name }}</td>
+                <td>{{ request.professional.name }}</td>
+                <td>{{ request.customer.address }}</td>
+                <td>{{ request.customer.pincode }}</td>
+                <td>{{ request.request_type }}</td>
+                <td>{{ request.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .list-group{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .list_item{
+            margin: 5px;
+        }
+
+        .card-text{
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .action{
+            width: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+{% endblock %}

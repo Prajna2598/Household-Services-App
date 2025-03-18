@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Search - Homemakers
+{% endblock %}
+
+{% block content %}
+
+    {% include 'navbar.html' %}
+
+    <div class="container mt-3">
+        <form action="{{ url_for('customer_search') }}" method="get">
+            <div class="parameters">
+                <select name="search_type" id="search_type" class="form-control mt-3 mb-3">
+                    <option value="service_name">Service Name</option>
+                    <option value="address">Address</option>
+                    <option value="pincode">Pincode</option>
+                </select>
+            </div>
+
+            {% if search_type == "pincode"  %}
+                <input type="number" class="form-control mt-3 mb-3" id="query" name="query" placeholder="Search">
+            {% else %}
+                <input type="text" class="form-control mt-3 mb-3" id="query" name="query" placeholder="Search" value="{{ query }}">
+            {% endif %}
+        
+            <button type="button" class="btn btn-danger mt-3 mb-3 clear-button" onclick="clearSearch()">
+                <i class="fas fa-backspace"></i>
+            </button>
+
+            <button type="submit" class="btn btn-primary mt-3 mb-3 search-button"> 
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+
+    <hr>
+
+<div class="container-fluid mt-3">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Professionals Available</th>
+                <th>Address</th>
+                <th>Pincode</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for professional in professionals %}
+            <tr>
+                <td>{{ professional.service.service_name }}</td>
+                <td>{{ professional.name }}</td>
+                <td>{{ professional.address }}</td>
+                <td>{{ professional.pincode }}</td>
+                <td>
+                    {% include 'show_professional.html' %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+    {% block style %}
+        <style>
+            form {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-evenly;
+            }
+
+            .parameters {
+                display: flex;
+                flex-direction: row;
+                width: 15%
+            }
+
+            #query {
+                width: 100%;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+        
+            .search-button {
+                width: 10%;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+
+            .clear-button {
+                width: 5%;
+                margin-left: 10px;
+            }
+
+
+        </style>
+    {% endblock %}
+
+    {% block script %}
+        <script>
+            function clearSearch() {
+                document.getElementById("query").value = "";
+            }
+        </script>
+
+    {% endblock %}
+
+{% endblock %}
+

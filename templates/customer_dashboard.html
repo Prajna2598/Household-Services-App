@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Customer Dashboard - Homemakers
+{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+    <div class="container-fluid mt-3">
+        <!-- Available Services -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Available Services</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for service in services %}
+                        <div class="card text-bg-light mb-3 list_item" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>{{service.service_name}}</strong></h5>
+                                <p class="card-text">Service Description: {{service.service_description}}</p>
+                                <p class="card-text">Base Price: &#8377 {{service.base_price}}</p>
+                                <p class="card-text">Time Required: {{service.time_required}}</p>
+                                {% set professionals = professionals | selectattr('service_id', '==', service.id) %}
+                                {% include 'create_request.html' %}
+                                {% include 'open_request.html' %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        <hr>
+        <!-- Customer Requests -->
+        <div class="container-fluid mt-2">
+            <h2>Your Requests</h2>
+            
+            <table class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th>Service Name</th>
+                        <th>Professional</th>
+                        <th>Date of Request</th>
+                        <th>Request Type</th>
+                        <th>Date of Completion</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if not customer_requests %}
+                    <tr>
+                        <td colspan="12" class="text-center">No requests found.</td>
+                    </tr>
+                    {% else %}
+                    {% for request in customer_requests %}
+                        {% if request.professional.is_approved %}
+                            <tr>
+                                <td>{{ request.req_service.service_name }}</td>
+                                <td>{{ request.professional.name }}</td>
+                                <td>{{ request.date_created }}</td>
+                                <td>{{ request.request_type }}</td>
+                                <td>{{ request.date_closed or 'NA' }}</td>
+                                <td>{{ request.description }}</td>
+                                <td>{{ request.status }}</td>
+                                <td>
+                                    {% if request.status == 'pending' %}
+                                        {% include 'edit_request.html' %}
+                                        {% include 'delete_request.html' %}
+                                    {% elif request.status == 'accepted' %}
+                                    <a href="{{ url_for('close_request', service_request_id=request.id) }}" class="btn btn-success btn-sm">Close</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="12" class="text-center"><strong>Professional no longer approved</strong></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% block style %}
+<style>
+    .list-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .list_item {
+        margin: 5px;
+    }
+
+    .card-text {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .action {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+</style>
+{% endblock %}
+
+{% endblock %}

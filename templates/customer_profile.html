@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Customer Profile - Homemakers
+{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+    <div class="heading">
+        <h1 class="text-black">Hello {{customer.username}}!</h1>
+        <h3 class="text-muted">Edit your Profile</h3>
+    </div>
+    <form method="post">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ customer.username }}">
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ customer.name }}">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="address" class="form-control" id="address" name="address" value="{{ customer.address }}">
+        </div>
+        <div class="form-group">
+            <label for="pincode">Pincode:</label>
+            <input type="pincode" class="form-control" id="pincode" name="pincode" value="{{ customer.pincode }}">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+    </form>
+
+{% block style %}
+<style>
+    .heading {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 65px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+{% endblock %}
+
+{% endblock %}
